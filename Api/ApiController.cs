@@ -28,5 +28,10 @@ namespace nFramework.Api{
 			}
 			error.Invoke(www.error);
 		}
+
+        public static void setBaseUrl(string newBaseUrl)
+        {
+            _baseUrl = newBaseUrl;
+        }
 	}
 }
