@@ -12,21 +12,30 @@ namespace nFramework.Api{
 		public static IEnumerator startRequest(string url, Data data, Action<string> succes, Action<string> error)
 		{
 			WWWForm form = new WWWForm();
-			List<string> keys = data.getKeys();
-			List<string> values = data.getValues();
-			for (int i = 0; i < keys.Count; i++)
-			{
-				form.AddField(keys[i], values[i]);
-			}
-
-			WWW www = new WWW(_baseUrl, form);
+            WWW www;
+            if (data != null)
+            {
+                List<string> keys = data.getKeys();
+                List<string> values = data.getValues();
+                for (int i = 0; i < keys.Count; i++)
+                {
+                    form.AddField(keys[i], values[i]);
+                }
+                www = new WWW(_baseUrl + url, form);
+            }
+            else
+            {
+                www = new WWW(_baseUrl + url);
+            }
 
 			yield return www;
-			if (string.IsNullOrEmpty(www.error))
-			{
-				succes.Invoke(www.text);
-			}
-			error.Invoke(www.error);
+            if (string.IsNullOrEmpty(www.error))
+            {
+                succes.Invoke(www.text);
+            }
+            else {
+                error.Invoke(www.error);
+            }
 		}
 
         public static void setBaseUrl(string newBaseUrl)

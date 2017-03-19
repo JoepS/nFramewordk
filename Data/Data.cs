@@ -8,6 +8,12 @@ namespace nFramework.Api{
 		List<string> _keys;
 		List<string> _values;
 
+        public Data()
+        {
+            this._keys = new List<string>();
+            this._values = new List<string>();
+        }
+
 		public Data(List<string> keys, List<string> values)
 		{
 			this._keys = keys;
